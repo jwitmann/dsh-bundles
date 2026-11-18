@@ -1,0 +1,19 @@
+{
+  "name": "dsh-config",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Workspace for DSH profile bundles (dsh-command-review) plus shared JS tooling.",
+  "scripts": {
+    "format": "biome format --write .",
+    "format:check": "biome format .",
+    "lint": "biome lint .",
+    "lint:md": "npm_config_cache=.npm-cache npx --yes markdownlint-cli2 \"**/*.md\"",
+    "check": "biome check .",
+    "typecheck": "node --check dsh-command-review/index.js",
+    "test": "node scripts/smoke-review.mjs"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.5"
+  }
+}

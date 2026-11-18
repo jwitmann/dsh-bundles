@@ -1,0 +1,16 @@
+node_modules/
+.pnpm-store/
+.npm-cache/
+dist/
+.DS_Store
+*.log
+# installed project scaffolding + live plugin state (local-only, never committed)
+/.opencode/
+# project-root only: local plugin registration, never committed
+/opencode.jsonc
+/.operator/
+/.dsh/
+/.dev-framework/
+/.opencode-dev-framework/
+/.opencode-dev-framework.yml
+/.dev-framework.yml

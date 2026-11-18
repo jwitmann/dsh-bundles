@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Review command",
+    "description": "Adds /review to delegate document review to a subagent, optionally on another model."
+  }
+}
