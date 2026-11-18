@@ -1,6 +1,6 @@
-# dsh-config
+# dsh-bundles
 
-Workspace for simple [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)
+Small [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)
 profile bundles, developed against the `dsh-tui` profile. One directory per
 bundle; each bundle is self-contained and installed into the profile by path.
 
@@ -8,16 +8,28 @@ bundle; each bundle is self-contained and installed into the profile by path.
 
 - `dsh-command-review/` — `/review` slash command: delegates document review
   to a `spawn` subagent, optionally on another model
-  (`/review [--model provider/model] [--output file] <doc-path>`).
+  (`/review [--model provider/model | model] [--effort <effort>] [--output <file>] <doc-path> [-- extra instructions]`).
   See its `README.md` for usage. Installed as `@local/dsh-command-review`.
 
 ## Install / update a bundle
 
+Prerequisites: a working DeepSeek Harness install with the `dsh-tui` profile.
+
+```sh
+git clone git@github.com:jwitmann/dsh-bundles.git   # e.g. to ~/dsh-bundles
+```
+
 In a `dsh-tui` session, via the plugin manager:
 
 ```text
-install_bundle /home/jerome/dsh-config/<bundle-dir>   # first install
-remove_bundle @local/<bundle-name>                     # then install again on updates
+install_bundle <clone-path>/<bundle-dir>   # first install
+remove_bundle @local/<bundle-name>         # then install again on updates
+```
+
+Concrete example:
+
+```text
+install_bundle ~/dsh-bundles/dsh-command-review
 ```
 
 After editing a bundle's JS, bump its `package.json` version, reinstall,
@@ -33,9 +45,8 @@ pnpm exec biome check .   # lint + format, workspace-wide
 pnpm lint:md        # markdownlint via npx on our Markdown files
 ```
 
-JS style is Biome 2.x (`biome.json`, mirrored from `~/operator-memory`).
-Markdown style is markdownlint-cli2 (`.markdownlint-cli2.jsonc`, mirrored
-from `~/opencode-dev-framework`, plus ignores for the scaffolded mirrors).
+JS style is Biome 2.x (`biome.json`).
+Markdown style is markdownlint-cli2 (`.markdownlint-cli2.jsonc`).
 Framework-owned trees (`.dsh`, `.opencode`, `.dev-framework*`) are
 intentionally excluded from linting — never reformat those.
 
@@ -43,6 +54,7 @@ intentionally excluded from linting — never reformat those.
 
 - `dsh-command-review/` — the `/review` bundle (code + `locale/` metadata)
 - `scripts/` — committed verification scripts (e.g. `smoke-review.mjs`)
-- `.operator/` — Operator Memory project brain (private index + catalog)
-- `.dev-framework/` — opencode-dev-framework config, hardening notes, reviews
 - `biome.json`, `.markdownlint-cli2.jsonc`, `package.json`, `pnpm-lock.yaml` — shared JS/Markdown tooling
+
+Local-only and not committed: `.operator/` (project brain), plus the
+framework-owned `.dsh/`, `.opencode/`, and `.dev-framework*` trees.

@@ -1,9 +1,9 @@
-# Review command
+# /review
 
 Adds `/review` to dsh-tui.
 
 ```text
-/review [--model provider/model | model] [--effort <effort>] [--output <file>] <doc-path> [-- extra instructions]
+/review [--model provider/model | model] [--provider <provider>] [--effort <effort>] [--output <file>] <doc-path> [-- extra instructions]
 ```
 
 Examples:
@@ -17,6 +17,9 @@ Examples:
 Behaviour:
 
 - Starts a `spawn` subagent whose prompt tells it to read the document with its filesystem tools and write a review document.
+  Default output is `<doc-path>.review.md`; override with `--output <file>`.
 - Omitting `--model` inherits the current session route (current provider/model/effort).
 - `--model provider/model` overrides both; `--model <model-id>` keeps the current provider and overrides only the model.
+- `--provider <provider-id>` keeps the current model and overrides only the provider; it conflicts with `--model provider/model` (use one or the other).
+- `--effort <effort>` overrides only the reasoning effort.
 - Returns immediately with `Started subagent <name>`; the child's completion notice delivers the result to the parent session.
